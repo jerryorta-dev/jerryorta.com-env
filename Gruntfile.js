@@ -23,20 +23,32 @@ module.exports = function (grunt) {
         'index.html'
     ];
 
+    //Create Dev Array
     var srcSync = [];
 
-    //Create Dev Array
     for (var i = 0; i < syncPaths.length; i++) {
         srcSync.push('jerryorta.com-dev/buildSync/' + syncPaths[i]);
     }
 
+    //Create Production Array
     var cleanSync = [];
 
-    //Create Production Array
     for (var j = 0; j < syncPaths.length; j++) {
         cleanSync.push('jerryorta.com-production/' + syncPaths[j]);
     }
 
+    //Copy buildSync
+    var copySync = [];
+
+    for (var k = 0; k < syncPaths.length; k++) {
+
+        if ( syncPaths[k] != 'index.html') {
+            copySync.push(syncPaths[k] + '/**/*');
+        } else {
+            copySync.push(syncPaths[k]);
+        }
+
+    }
 
 
 
@@ -58,7 +70,9 @@ module.exports = function (grunt) {
         },
         copy: {
             buildSync: {
-                src: srcSync,
+                expand: true,
+                cwd: "jerryorta.com-dev/buildSync",
+                src: copySync,
                 dest: "jerryorta.com-production"
             }
         }
