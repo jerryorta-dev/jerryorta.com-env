@@ -20,6 +20,7 @@ module.exports = function (grunt) {
         'css',
         'js',
         'libs',
+        'favicon',
         'index.html'
     ];
 
