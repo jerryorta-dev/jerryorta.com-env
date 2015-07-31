@@ -5,50 +5,42 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
 
-    var buildAsync = [
-        'bower_components/angular/angular.js',
-        'bower_components/angular-route/angular-route.min.js',
-        'bower_components/angular-animate/angular-animate.min.js',
-        'bower_components/angular-touch/angular-touch.min.js',
-        'bower_components/angulartics/dist/angulartics.min.js',
-        'bower_components/angulartics/dist/angulartics-ga.min.js'
-
-    ];
-
-    var syncPaths = [
+    var syncDirectories = [
         'bower_components',
         'css',
-        'js',
-        'libs',
         'favicon',
+        'js',
+        'libs'
+    ];
+
+    var syncRootFiles =  [
+        'favicon.ico',
         'index.html'
     ];
 
     //Create Dev Array
     var srcSync = [];
 
-    for (var i = 0; i < syncPaths.length; i++) {
-        srcSync.push('jerryorta.com-dev/buildSync/' + syncPaths[i]);
+    for (var i = 0; i < syncDirectories.length; i++) {
+        srcSync.push('jerryorta.com-dev/buildSync/' + syncDirectories[i]);
     }
 
     //Create Production Array
     var cleanSync = [];
 
-    for (var j = 0; j < syncPaths.length; j++) {
-        cleanSync.push('jerryorta.com-production/' + syncPaths[j]);
+    for (var j = 0; j < syncDirectories.length; j++) {
+        cleanSync.push('jerryorta.com-production/' + syncDirectories[j]);
     }
 
     //Copy buildSync
     var copySync = [];
 
-    for (var k = 0; k < syncPaths.length; k++) {
+    for (var k = 0; k < syncDirectories.length; k++) {
+        copySync.push(syncDirectories[k] + '/**/*');
+    }
 
-        if ( syncPaths[k] != 'index.html') {
-            copySync.push(syncPaths[k] + '/**/*');
-        } else {
-            copySync.push(syncPaths[k]);
-        }
-
+    for (var l = 0; l < syncRootFiles.length; l++) {
+        copySync.push(syncRootFiles[l]);
     }
 
 
